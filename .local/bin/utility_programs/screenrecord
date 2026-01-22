@@ -15,3 +15,4 @@ else
     ~/Videos/recordings/"$filename" 2>/dev/null &
   echo $! > "$PIDFILE"
 fi
+kill -42 $(pidof dwmblocks)
