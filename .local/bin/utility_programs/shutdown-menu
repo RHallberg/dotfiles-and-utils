@@ -1,0 +1,24 @@
+#!/bin/sh
+
+choice=$(dmenu -p "what to do?" << 'OPTIONS'
+shutdown
+restart
+logout
+reload config
+OPTIONS
+  )
+
+if [ -z "$choice" ]; then
+    exit 1
+elif [ "$choice" = "shutdown" ]; then
+    systemctl poweroff
+elif [ "$choice" = "restart" ]; then
+    systemctl reboot
+elif [ "$choice" = "logout" ]; then
+    kill $(pidof dwm)
+elif [ "$choice" = "reload config" ]; then
+    xsetroot -name "fsignal:15"
+else
+  exit 1
+fi
+
