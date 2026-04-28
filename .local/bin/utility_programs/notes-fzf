@@ -1,0 +1,21 @@
+#!/bin/sh
+
+choice=$(printf "%s\n" \
+  "todo" \
+  "daily-notes" \
+  "work" \
+  "projects" | fzf --prompt="What type of note? ")
+
+[ -z "$choice" ] && exit 1
+
+printf "Write %s: " "$choice"
+read -r note
+
+[ -z "$note" ] && exit 1
+
+if [ "$choice" = "daily-notes" ]; then
+  today=$(date +"%Y-%m-%d")
+  printf "%s\n\n" "$note" >> "$HOME/notes/daily/notes_$today.txt"
+else
+  printf "%s\n\n" "$note" >> "$HOME/notes/$choice.txt"
+fi

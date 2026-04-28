@@ -1,0 +1,23 @@
+#!/bin/sh
+
+choice=$(dmenu -p "What type of note?" << 'OPTIONS'
+todo
+daily-notes
+work
+projects
+OPTIONS
+  )
+
+if [ -z "$choice" ]; then
+    exit 1
+fi
+
+note=$(dmenu -p "Write $choice" <&-)
+
+if [ "$choice" = "daily-notes" ]; then
+  today=$(date +"%Y-%m-%d")
+  printf "%s\n\n" "$note" >> "$HOME/notes/daily/notes_$today.txt"
+else
+  printf "%s\n\n" "$note" >> "$HOME/notes/$choice.txt"
+fi
+
