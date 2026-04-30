@@ -1,6 +1,15 @@
 #!/bin/sh
-choice="$(awk '{$1=""; print $0}' ~/Documents/bookmarks/bookmarks.txt | dmenu -i -p "Open bookmark:")"
+bookmarks_file="/home/rickard/Documents/bookmarks/bookmarks.txt"
+
+choice="$(awk 'BEGIN{print "+ Add bookmark"}{ $1=""; print $0}' "$bookmarks_file" | dmenu -l 15 -i -p "Open bookmark:")"
 
 [ -z "$choice" ] && exit 1
 
-grep -F "$choice" ~/Documents/bookmarks/bookmarks.txt | awk '{print $1}' | xargs brave
+
+if [ "$choice" = "+ Add bookmark" ]; then
+  url=$(dmenu -p "Url:" <&-)
+  name=$(dmenu -p "Name:" <&-)
+  echo "$url $name" >> "$bookmarks_file"
+else
+  grep -F "$choice" ~/Documents/bookmarks/bookmarks.txt | awk '{print $1}' | xargs zen-browser
+fi
