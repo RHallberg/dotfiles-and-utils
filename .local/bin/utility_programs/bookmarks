@@ -13,5 +13,5 @@ if [ "$choice" = "+ Add bookmark" ]; then
   [ -z "$name" ] && exit 1
   echo "$url $name" >> "$bookmarks_file"
 else
-  grep -F "$choice" ~/Documents/bookmarks/bookmarks.txt | awk '{print $1}' | xargs zen-browser
+  grep -F "$choice" "$bookmarks_file" | awk '{print $1}' | xargs zen-browser
 fi
