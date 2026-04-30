@@ -8,7 +8,9 @@ choice="$(awk 'BEGIN{print "+ Add bookmark"}{ $1=""; print $0}' "$bookmarks_file
 
 if [ "$choice" = "+ Add bookmark" ]; then
   url=$(dmenu -p "Url:" <&-)
+  [ -z "$url" ] && exit 1
   name=$(dmenu -p "Name:" <&-)
+  [ -z "$name" ] && exit 1
   echo "$url $name" >> "$bookmarks_file"
 else
   grep -F "$choice" ~/Documents/bookmarks/bookmarks.txt | awk '{print $1}' | xargs zen-browser
