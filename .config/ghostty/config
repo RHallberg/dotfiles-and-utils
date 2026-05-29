@@ -35,4 +35,8 @@ resize-overlay = never
 
 keybind = super+r>super+r=text:ranger 2>/dev/null\n
 keybind = super+h>super+h=text:~\n
+keybind = super+7=text:{
+keybind = super+0=text:}
+keybind = super+8=text:[
+keybind = super+9=text:]
 
