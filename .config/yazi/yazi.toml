@@ -1,0 +1,4 @@
+[mgr]
+show_symlink = false
+sort_translit = true
+sort_dir_first = true

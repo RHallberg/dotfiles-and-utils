@@ -1,0 +1,5 @@
+[mgr]
+prepend_keymap = [
+  { on = "H", run = "hidden toggle", desc = "Toggle hidden files" },
+  { on = "E", run = "shell -- echo %h | awk -f ~/.config/yazi/extract.awk", desc = "Extract file" },
+]
