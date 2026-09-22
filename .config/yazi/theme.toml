@@ -24,6 +24,8 @@ syntect_theme = "~/.config/yazi/Catppuccin-latte.tmTheme"
 [tabs]
 active   = { fg = "#eff1f5", bg = "#4c4f69", bold = true }
 inactive = { fg = "#4c4f69", bg = "#bcc0cc" }
+sep_inner = { open = "", close = "" }
+sep_outer = { open = "", close = "" }
 
 [mode]
 normal_main = { fg = "#eff1f5", bg = "#1e66f5", bold = true }
