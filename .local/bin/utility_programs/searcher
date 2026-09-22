@@ -14,7 +14,9 @@ choice=$(awk -F";" '{print NR" "$1}' "$inputfile" \
 [ -z "$choice" ] && exit 1
 
 option=$(rg "^$choice;" "$inputfile")
-query=$(dmenu -p "Search $choice" <&-)
+query=""
+[ -z "$option" ] || query=$(dmenu -p "Search $choice" <&-)
+[ -z "$option" ] && option=$(head -n 1 $inputfile) && query=$choice
 
 [ -z "$query" ] && exit 1
 
