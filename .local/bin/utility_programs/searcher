@@ -1,8 +1,4 @@
 #!/bin/sh
-# File rows should be in the following format:
-# NAME;URL;ARGS
-# %s in URL denotes where query goes
-inputfile=~/Documents/data/search_engines/engines.csv
 
 inputfile=$1
 
@@ -23,4 +19,5 @@ query=""
 urlencoded=$(echo -n "$query" | jq -sRr @uri)
 uri=$(echo "$option" | awk -F";" '{print $2}' | sed "s/%s/$urlencoded/")
 args=$(echo "$option" | awk -F";" '{print $3}')
+echo "$uri"
 zen-browser "$args" "$uri"
