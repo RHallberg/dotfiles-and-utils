@@ -1,0 +1,14 @@
+/* Needs to be manually placed in ~/.zen/someid someshit Current/Chrome  */
+#zen-tabbox-wrapper {
+    margin: 0 !important;
+}
+
+#zen-appcontent-navbar-wrapper {
+  display: none !important;
+}
+
+:root {
+  --zen-webview-border-radius: 0px !important;
+  --zen-border-radius: 0px !important;
+  --zen-borders-radius: 0px !important;
+}
