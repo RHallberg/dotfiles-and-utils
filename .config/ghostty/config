@@ -34,6 +34,8 @@ resize-overlay = never
 # keybinds
 
 keybind = super+r>super+r=text:ranger 2>/dev/null\n
+keybind = super+y=text:y\n
+keybind = super+d>b=text:cd ~/Documents/bookmarks\n
 keybind = super+h>super+h=text:~\n
 keybind = super+7=text:{
 keybind = super+0=text:}

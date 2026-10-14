@@ -2,24 +2,22 @@
 
 # xinitrc runs automatically when you run startx.
 
-# There are some small but important commands that need to be run when we start
-# the graphical environment. There is a link to this file in ~/.xprofile
-# because that file is run automatically if someone uses a display manager
-# (login screen) and so they are needed there. To prevent doubling up commands,
-# I source them here with the line below.
-
+source ~/.zprofile
 if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xprofile" ]; then
 	. "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xprofile"
 else
 	. "$HOME/.xprofile"
 fi
 
+setxkbmap -option ctrl:swapcaps
 setxkbmap se
-picom --backend glx &
-pipewire &
-xrandr --output DP-4 --rotate left --right-of DP-0
-feh --bg-scale ~/Pictures/wallpaper.jpg &
+xrandr --output DP-2 --primary
+xrandr --output DP-2 --rotate left --right-of DP-3
+xrandr --output HDMI-4 --left-of DP-3
+find ~/Pictures/wallpapers/ -type f | head -n 1 | xargs feh --bg-scale
+xrdb ~/.config/x11/xresources
 # Activate dbus variables
 #
-dbus-update-activation-environment --all
+dbus-update-activation-environment --systemd DISPLAY XAUTHORITY DBUS_SESSION_BUS_ADDRESS PATH
 dbus-launch ssh-agent dwm
+picom --backend glx &

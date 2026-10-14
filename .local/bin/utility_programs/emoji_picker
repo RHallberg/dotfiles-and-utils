@@ -1,2 +1,2 @@
 #!/bin/sh
- cat ~/.local/misc/emojilist.txt | dmenu -i -l 30 -fn "Apple Color Emoji monospace" | awk '{printf("%s",$1)}' | xclip -selection clipboard
+ cat ~/.local/share/dmenu/emojilist.txt | dmenu -i -l 30 -fn "Apple Color Emoji monospace" | awk '{printf("%s",$1)}' | xclip -selection clipboard

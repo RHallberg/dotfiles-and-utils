@@ -1,4 +1,5 @@
 [mgr]
-show_symlink = false
+show_symlink = true
 sort_translit = true
 sort_dir_first = true
+linemode = "size"

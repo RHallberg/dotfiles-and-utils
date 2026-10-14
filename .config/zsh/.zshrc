@@ -1,3 +1,5 @@
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
 # Enable colors and change prompt:
 autoload -U colors && colors	# Load colors
 # PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
@@ -6,7 +8,16 @@ setopt autocd		# Automatically cd into typed directory.
 stty stop undef		# Disable ctrl-s to freeze terminal.
 setopt interactive_comments
 
-export PATH="$PATH:$(find ~/.local/bin -type d | paste -sd ':' -)"
+if [[ ! $PATH == *"/$HOME/.local/bin"* ]]; then
+    export PATH="$PATH:$(find ~/.local/bin -type d | paste -sd ':' -)"
+fi
+
+export PATH="$PATH:/$HOME/.local/share/cargo/bin"
+export PATH="$PATH:/$HOME/repos/ext/Odin"
+export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig/:$PKG_CONFIG_PATH
+
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' menu select
 
 # History in cache directory:
 HISTSIZE=10000000
@@ -54,6 +65,14 @@ zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
+function y() {
+  local tmp cwd; tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+  command yazi "$@" --cwd-file="$tmp"
+  IFS= read -r -d '' cwd < "$tmp"
+  [ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd" || builtin true
+  command rm -f -- "$tmp"
+}
+
 source "${XDG_CONFIG_HOME:-$HOME/.config}/lf-shellcd/lf-shellcd"
 bindkey -s '^o' '^ulfcd\n'
 
@@ -72,3 +91,4 @@ bindkey -M visual '^[[P' vi-delete
 
 # Load syntax highlighting; should be last.
 source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 2>/dev/null
+eval "$(zoxide init zsh)"
